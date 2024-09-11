@@ -1,10 +1,12 @@
 import { getInvoice } from "../services/getInvoice"
+import { ClientView } from "./ClientView";
+import { CompanyView } from "./CompanyView";
+import { InvoiceView } from "./InvoiceView";
+import { ListItemsView } from "./ListItemsView";
 
 export const InvoiceApp = () => {
 
     const { id, name, client, company, items } = getInvoice();
-    const { name: nameClient, lastName, address } = client;
-    const { country, city, street, number } = address;
 
     return (
         <>
@@ -14,48 +16,16 @@ export const InvoiceApp = () => {
                         Ejemplo factura
                     </div>
                     <div className="card-body">
-
-                        <ul className="list-group">
-                            <li className="list-group-item">Id: {id}</li>
-                            <li className="list-group-item">Nombre factura: {name}</li>
-                        </ul>
+                        <InvoiceView id={id} name={name} />
                         <div className="row my-3">
                             <div className="col">
-                                <h3>Datos del cliente</h3>
-                                <ul className="list-group">
-                                    <li className="list-group-item active">Nombre del cliente: {nameClient} {lastName} </li>
-                                    <li className="list-group-item">Lugar: {country} / {city}</li>
-                                    <li className="list-group-item">Dirección: {street} {number}</li>
-                                </ul>
+                                <ClientView title="Datos del cliente" client={client} />
                             </div>
                             <div className="col">
-                                <h3>Datos de la empresa</h3>
-                                <ul className="list-group">
-                                    <li className="list-group-item active">Empresa: {company.name}</li>
-                                    <li className="list-group-item">Número fiscal: {company.fiscalNumber}</li>
-                                </ul>
+                                <CompanyView title="Datos de la empresa" company={company} />
                             </div>
                         </div>
-                        <h4>Productos de la factura</h4>
-                        <table className="table table-striéd table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Produto</th>
-                                    <th>Precio</th>
-                                    <th>Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {items.map(({ id, product, price, quantity }) => (
-                                    <tr key={id}>
-                                        <td>{product}</td>
-                                        <td>{price}</td>
-                                        <td>{quantity}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-
-                        </table>
+                        <ListItemsView title="Productos de la factura" items={items} />
                     </div>
                 </div>
             </div>
