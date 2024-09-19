@@ -1,3 +1,6 @@
+import { RowItemView } from "./RowItemView"
+import PropTypes from 'prop-types';
+
 export const ListItemsView = ({ title, items }) => {
     return (
         <>
@@ -12,15 +15,15 @@ export const ListItemsView = ({ title, items }) => {
                 </thead>
                 <tbody>
                     {items.map(({ id, product, price, quantity }) => (
-                        <tr key={id}>
-                            <td>{product}</td>
-                            <td>{price}</td>
-                            <td>{quantity}</td>
-                        </tr>
+                        <RowItemView key={id} product={product} price={price} quantity={quantity}/>
                     ))}
                 </tbody>
 
             </table>
         </>
     )
+}
+ListItemsView.propTypes = {
+    title: PropTypes.string.isRequired,
+    items: PropTypes.array.isRequired
 }
